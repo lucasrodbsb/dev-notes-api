@@ -4,15 +4,15 @@ import { verifyJwtToken } from '../middlewares/verifyJwtToken';
 
 const notesRoutes = Router();
 
-notesRoutes.get('/get-notes/:user_id', verifyJwtToken, getNotesByUserId)
+notesRoutes.get('/notes/get-all/:user_id', verifyJwtToken, getNotesByUserId)
 
-notesRoutes.delete('/delete-note/:note_id', verifyJwtToken, deleteNotesByNoteId)
+notesRoutes.delete('/notes/delete/:note_id', verifyJwtToken, deleteNotesByNoteId)
 
-notesRoutes.post('/add-note', verifyJwtToken, addNote)
+notesRoutes.post('/notes/add', verifyJwtToken, addNote)
 
-notesRoutes.put('/edit-note/:note_id', verifyJwtToken, editNoteByNoteId)
+notesRoutes.put('/notes/edit/:note_id', verifyJwtToken, editNoteByNoteId)
 
-notesRoutes.get('/get-note/:note_id', verifyJwtToken, getNoteByNoteId)
+notesRoutes.get('/notes/get/:note_id', verifyJwtToken, getNoteByNoteId)
 
 // notesRoutes.get("/")
 

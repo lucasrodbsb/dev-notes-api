@@ -4,12 +4,12 @@ import { verifyJwtToken } from '../middlewares/verifyJwtToken';
 
 const userRoutes = Router();
 
-userRoutes.post("/authenticate-user", authenticateUser)
+userRoutes.post("/auth/authenticate-user", authenticateUser)
 
-userRoutes.get("/validate-token", verifyJwtToken)
+userRoutes.get("/auth/validate-token", verifyJwtToken)
 
-userRoutes.get("/teste", verifyJwtToken, returnJwtData)
+userRoutes.get("/auth/teste", verifyJwtToken, returnJwtData)
 
-userRoutes.post("/add/user", addNewUser)
+userRoutes.post("/auth/add-user", addNewUser)
 
 export default userRoutes;
