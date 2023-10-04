@@ -39,8 +39,6 @@ export const addNote = async (req: Request, res: Response) => {
     datetime: +req.body.datetime,
   });
 
-  console.log(result);
-
   if (result[1] == 0) {
     return res.status(401).send({
       message: "Erro ao adicionar nota.",

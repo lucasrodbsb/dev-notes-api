@@ -14,8 +14,6 @@ notesRoutes.put('/notes/edit/:note_id', verifyJwtToken, editNoteByNoteId)
 
 notesRoutes.get('/notes/get/:note_id', verifyJwtToken, getNoteByNoteId)
 
-// notesRoutes.get("/")
-
 export default notesRoutes
 
 

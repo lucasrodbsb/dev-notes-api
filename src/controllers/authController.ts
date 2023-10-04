@@ -54,37 +54,35 @@ export const authenticateUser = async (req: Request, res: Response) => {
 };
 
 export const addNewUser = async (req: Request, res: Response) => {
-  let result;
+  let result: number;
   result = await addNewUserModel({
     email: req.body.email,
     full_name: req.body.full_name,
     username: req.body.username,
     password: req.body.password,
   });
-  if (result !== undefined) {
     switch (result) {
       case 0:
-        return res.status(401).json({
+        return res.status(200).json({
           status: "unauthorized",
-          errorMsg: "Usuário já existente!",
+          message: "Usuário já existente!",
         });
-        break;
+        
 
       case 2:
-        return res.status(200).json({
+        return res.status(201).json({
           status: "success",
           message: "Usuário criado com sucesso!",
         });
-        break;
+        
 
       case 1:
         return res.status(401).json({
-          status: "unauthorized",
-          errorMsg: "Erro ao criar usuário!",
+          status: "error",
+          message: "Erro ao criar usuário!",
         });
-        break;
+        
     }
-  }
 };
 
 export const returnJwtData = async (req: Request, res: Response) => {
