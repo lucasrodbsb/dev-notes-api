@@ -1,8 +1,11 @@
+import { getAllNotesByUserIdModel } from './../models/notesModel';
 import { User } from "./../types/userTypes";
 import {
   generateJwtTokenModel,
   authenticateUserModel,
   addNewUserModel,
+  getUserDataModel,
+  deleteUserByIdModel,
 } from "./../models/authModel";
 import { Request, Response } from "express";
 const dotenv = require("dotenv");
@@ -16,10 +19,9 @@ type jwtUserData = {
 
 dotenv.config();
 
-
 export const authenticateUser = async (req: Request, res: Response) => {
   let result = await authenticateUserModel({
-    email: req.body.email,
+    username: req.body.username,
     password: req.body.password,
   });
 
@@ -27,7 +29,7 @@ export const authenticateUser = async (req: Request, res: Response) => {
     try {
       let jwtSecretKey = `${process.env.JWT_SECRET_KEY}`;
 
-      let data = {
+      let data: jwtUserData = {
         user_Id: result[0].user_id,
         full_name: result[0].full_name,
         username: result[0].username,
@@ -103,4 +105,22 @@ export const returnJwtData = async (req: Request, res: Response) => {
       }
     }
   );
+};
+
+export const getUserData = async (req: Request, res: Response) => {
+  let result;
+
+  result = await getUserDataModel({
+    user_id: +req.params.user_id ?? 0
+  })
+
+  return res.status(200).send(result)
+}
+
+export const deleteUserById = async (req: Request, res: Response) => {
+  let result = await deleteUserByIdModel({
+    user_id: +req.params.user_id ?? 0,
+  });
+
+  return res.status(200).send(result);
 };

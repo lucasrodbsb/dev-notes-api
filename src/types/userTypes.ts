@@ -3,5 +3,6 @@ export type User = {
     username: string,
     password: string,
     full_name: string,
-    email: string
+    email: string,
+    photo: string | undefined | null
 }

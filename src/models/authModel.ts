@@ -7,19 +7,19 @@ import { JsonWebTokenError } from "jsonwebtoken";
 export const generateJwtTokenModel = async ({}: {}) => {};
 
 export const authenticateUserModel = async ({
-  email,
+  username,
   password,
 }: {
-  email: string;
+  username: string;
   password: string;
 }) => {
   let result = await db
     .query<User>(
-      "SELECT * FROM users WHERE email = :email AND password = :password",
+      "SELECT * FROM users WHERE username = :username AND password = :password",
       {
         type: QueryTypes.SELECT,
         replacements: {
-          email,
+          username,
           password,
         },
       }
@@ -35,8 +35,8 @@ export const addNewUserModel = async ({
   username,
   full_name,
 }: Pick<User, "email" | "full_name" | "username" | "password">) => {
-  let result: number = 2;
 
+  let result: number = 2;
   let userAlreadyExists;
 
   userAlreadyExists = await db.query(
@@ -72,5 +72,34 @@ export const addNewUserModel = async ({
         result = 1;
       });
   }
+  return result;
+};
+
+export const getUserDataModel = async ({user_id}: {user_id: number}) => {
+  let result;
+  result = await db.query<Pick<User, "email" | "full_name" | "username" | "photo" | "user_id">>(" SELECT email, full_name, username, photo, user_id FROM users WHERE user_Id = :user_id ",{
+    type: QueryTypes.SELECT,
+    replacements: {
+      user_id
+    }
+  });
+
+  return result
+}
+
+export const deleteUserByIdModel = async ({
+  user_id,
+}: {
+  user_id: number;
+}) => {
+  let result = await db
+    .query("DELETE FROM `users` WHERE user_id = :user_id;", {
+      type: QueryTypes.DELETE,
+      replacements: {
+        user_id,
+      },
+    })
+    .catch();
+
   return result;
 };

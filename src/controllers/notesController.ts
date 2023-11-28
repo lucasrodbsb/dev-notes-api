@@ -1,6 +1,7 @@
 import {
   addNoteModel,
   deleteNotesByNoteIdModel,
+  deleteAllNotesByUserIdModel,
   editNoteByNoteIdModel,
   getAllNotesByUserIdModel,
   getNoteByNoteIdModel,
@@ -26,6 +27,14 @@ export const getNoteByNoteId = async (req: Request, res: Response) => {
 export const deleteNotesByNoteId = async (req: Request, res: Response) => {
   let result = await deleteNotesByNoteIdModel({
     note_id: +req.params.note_id ?? 0,
+  });
+
+  return res.status(200).send(result);
+};
+
+export const deleteAllNotesByUserId = async (req: Request, res: Response) => {
+  let result = await deleteAllNotesByUserIdModel({
+    user_id: +req.params.user_id ?? 0,
   });
 
   return res.status(200).send(result);
